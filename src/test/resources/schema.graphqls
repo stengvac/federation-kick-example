@@ -4,7 +4,7 @@ type Query {
 
 type Account @key(fields: "iban") @extends {
     iban: String! @external
-    userId: String! @external
-    balance: String! @requires(fields: "userId")
+    currency: String! @external
+    balance: String! @requires(fields: "currency")
 }
 

@@ -16,17 +16,17 @@ class QueryResolver : GraphQLQueryResolver {
 
     fun account(iban: String) = Account(
         iban = iban,
-        userId = returnedUserId
+        currency = returnedCurrency
     )
 
     companion object {
-        const val returnedUserId = "userId"
+        const val returnedCurrency = "EUR"
     }
 }
 
 @Component
 class AccountResolver : GraphQLResolver<Account>, FederationReferenceResolver<Account> {
-
+    //extending Account with balance field
     fun balance(context: Account) = returnedBalance
 
     companion object {
@@ -36,5 +36,5 @@ class AccountResolver : GraphQLResolver<Account>, FederationReferenceResolver<Ac
 
 data class Account(
     val iban: String,
-    val userId: String
+    val currency: String
 )

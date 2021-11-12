@@ -1,7 +1,7 @@
 query {
-    _entities(representations: [{ iban: "externalIban", userId: "externalUserId", __typename: "Account" }]) {
+    _entities(representations: [{ iban: "externalIban", currency: "externalCurrencyValue", __typename: "Account" }]) {
         ... on Account {
-            userId
+            currency
             iban
             balance
         }

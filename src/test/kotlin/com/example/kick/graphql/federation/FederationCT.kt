@@ -32,7 +32,7 @@ class FederationCT(
             .get("$.data.account", AccountWithBalance::class.java)
 
         assertThat(accountWithBalance.balance).isEqualTo(AccountResolver.returnedBalance)
-        assertThat(accountWithBalance.userId).isEqualTo(QueryResolver.returnedUserId)
+        assertThat(accountWithBalance.currency).isEqualTo(QueryResolver.returnedCurrency)
         assertThat(accountWithBalance.iban).isEqualTo(iban)
     }
 
@@ -40,7 +40,7 @@ class FederationCT(
     fun `federation _entities query is resolved correctly`() {
         //those 2 values are normally send from other service - extended type
         val iban = "externalIban"
-        val userId = "externalUserId"
+        val currency = "externalCurrencyValue"
         //variables does not work with _entities call it seems
         val accountsWithBalance = testGraphQL.execute(
             input = "/gql/query-entities.graphql",
@@ -51,14 +51,14 @@ class FederationCT(
         val accountWithBalance = accountsWithBalance.first()
 
         assertThat(accountWithBalance.balance).isEqualTo(AccountResolver.returnedBalance)
-        assertThat(accountWithBalance.userId).isEqualTo(userId)
+        assertThat(accountWithBalance.currency).isEqualTo(currency)
         assertThat(accountWithBalance.iban).isEqualTo(iban)
     }
 }
 
 data class AccountWithBalance(
     val iban: String,
-    val userId: String,
+    val currency: String,
     val balance: String
 )
 

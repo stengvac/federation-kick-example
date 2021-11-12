@@ -1,0 +1,9 @@
+query {
+    _entities(representations: [{ iban: "externalIban", userId: "externalUserId", __typename: "Account" }]) {
+        ... on Account {
+            userId
+            iban
+            balance
+        }
+    }
+}

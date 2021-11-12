@@ -86,7 +86,12 @@ Add implementation for extended types.
 
 @Component
 class AccountResolver : GraphQLResolver<Account>, FederationReferenceResolver<Account> {
-    fun balance(context: Account): String = "5.7"
+    //extending Account with balance field - hopefully I am rich
+    fun balance(context: Account): BigDecimal = returnedBalance
+
+    companion object {
+        val returnedBalance: BigDecimal = BigDecimal.TEN
+    }
 }
 
 data class Account(

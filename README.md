@@ -96,7 +96,7 @@ class AccountResolver : GraphQLResolver<Account>, FederationReferenceResolver<Ac
 
 data class Account(
     val iban: String,
-    val currency: UUID
+    val currency: String
 )
 ```
 

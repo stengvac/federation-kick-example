@@ -1,3 +1,5 @@
+scalar BigDecimal
+
 type Query {
     account(iban: String): Account!
 }
@@ -5,6 +7,6 @@ type Query {
 type Account @key(fields: "iban") @extends {
     iban: String! @external
     currency: String! @external
-    balance: String! @requires(fields: "currency")
+    balance: BigDecimal! @requires(fields: "currency")
 }
 

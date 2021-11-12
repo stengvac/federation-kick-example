@@ -9,6 +9,7 @@ import com.example.kick.graphql.federation.app.AccountResolver
 import com.example.kick.graphql.federation.app.QueryResolver
 import com.example.kick.graphql.federation.app.TestApplication
 import org.springframework.test.context.ActiveProfiles
+import java.math.BigDecimal
 
 @ActiveProfiles("test")
 @SpringBootTest(
@@ -31,7 +32,7 @@ class FederationCT(
         ).assertThatNoErrorsArePresent()
             .get("$.data.account", AccountWithBalance::class.java)
 
-        assertThat(accountWithBalance.balance).isEqualTo(AccountResolver.returnedBalance)
+        assertThat(accountWithBalance.balance).isEqualByComparingTo(AccountResolver.returnedBalance)
         assertThat(accountWithBalance.currency).isEqualTo(QueryResolver.returnedCurrency)
         assertThat(accountWithBalance.iban).isEqualTo(iban)
     }
@@ -50,7 +51,7 @@ class FederationCT(
         assertThat(accountsWithBalance).hasSize(1)
         val accountWithBalance = accountsWithBalance.first()
 
-        assertThat(accountWithBalance.balance).isEqualTo(AccountResolver.returnedBalance)
+        assertThat(accountWithBalance.balance).isEqualByComparingTo(AccountResolver.returnedBalance)
         assertThat(accountWithBalance.currency).isEqualTo(currency)
         assertThat(accountWithBalance.iban).isEqualTo(iban)
     }
@@ -59,6 +60,6 @@ class FederationCT(
 data class AccountWithBalance(
     val iban: String,
     val currency: String,
-    val balance: String
+    val balance: BigDecimal
 )
 

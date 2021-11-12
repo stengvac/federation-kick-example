@@ -6,10 +6,18 @@ import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.stereotype.Component
 import com.example.kick.graphql.federation.FederationReferenceResolver
 import com.example.kick.graphql.federation.config.EnableGraphQlFederation
+import graphql.scalars.ExtendedScalars
+import graphql.schema.GraphQLScalarType
+import org.springframework.context.annotation.Bean
+import java.math.BigDecimal
 
 @EnableGraphQlFederation
 @SpringBootApplication
-class TestApplication
+class TestApplication {
+
+    @Bean
+    fun bigDecimalScalar(): GraphQLScalarType = ExtendedScalars.GraphQLBigDecimal
+}
 
 @Component
 class QueryResolver : GraphQLQueryResolver {
@@ -26,11 +34,11 @@ class QueryResolver : GraphQLQueryResolver {
 
 @Component
 class AccountResolver : GraphQLResolver<Account>, FederationReferenceResolver<Account> {
-    //extending Account with balance field
-    fun balance(context: Account) = returnedBalance
+    //extending Account with balance field - hopefully I am rich
+    fun balance(context: Account): BigDecimal = returnedBalance
 
     companion object {
-        const val returnedBalance = "5.7"
+        val returnedBalance: BigDecimal = BigDecimal.TEN
     }
 }
 
